@@ -15,7 +15,7 @@ CREATE TABLE articles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     discipline VARCHAR(100),
     titre VARCHAR(100),
-    contenu VARCHAR(100000),
+    contenu TEXT,
     auteur VARCHAR(32)
 );
 
