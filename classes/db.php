@@ -18,9 +18,10 @@ include_once 'Commentaire.php';
 class db {
 
     private $dbh;
-
+    
     function __construct() {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=knowledge_websitedb', 'root', 'toor');
+
+        $this->dbh = new PDO('mysql:host=localhost;dbname=knowledge_websitedb', 'root', file_get_contents("./dbpass"));
         //$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 

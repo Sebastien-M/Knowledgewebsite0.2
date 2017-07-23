@@ -21,6 +21,8 @@ and open the template in the editor.
     <body>
 
         <?php
+        $file = file_get_contents("dbpass");
+        echo $file;
         require_once './website-parts/header.php';
         require_once 'classes/db.php';
         include_once './classes/Utilisateur.php';
