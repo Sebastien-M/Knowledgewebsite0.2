@@ -12,23 +12,17 @@
  * @author seb
  */
 class Commentaire {
-
-    protected $id;
+    
     protected $auteur;
     protected $commentaire;
     protected $date;
-    protected $id2;
+    protected $idarticle;
 
-    function __construct($id, $auteur, $commentaire) {
-        $this->id = $id;
+    function __construct( $auteur, $commentaire,$idarticle) {
         $this->auteur = $auteur;
         $this->commentaire = $commentaire;
-        $this->date = date("m/d/y");
-        $this->id2 = rand(0, 10000000);
-    }
-
-    function getId() {
-        return $this->id;
+        $this->date = date("Y-m-d");
+        $this->idarticle=$idarticle;
     }
 
     function getAuteur() {
@@ -43,8 +37,8 @@ class Commentaire {
         return $this->date;
     }
 
-    function getId2() {
-        return $this->id2;
+    function getidarticle() {
+        return $this->idarticle;
     }
 
 

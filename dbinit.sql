@@ -7,7 +7,7 @@ CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT,
     age DATE,
     avatar VARCHAR(500),
     bio VARCHAR(500),
-    password VARCHAR (40),
+    password VARCHAR (1000),
     regdate DATE
 );
 
@@ -15,8 +15,9 @@ CREATE TABLE articles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     discipline VARCHAR(100),
     titre VARCHAR(100),
-    contenu TEXT,
-    auteur VARCHAR(32)
+    contenu mediumtext,
+    auteur VARCHAR(32),
+    creation_date DATE
 );
 
 CREATE TABLE commentaires(

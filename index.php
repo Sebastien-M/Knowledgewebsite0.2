@@ -39,7 +39,7 @@ and open the template in the editor.
                 echo "<div class = 'cours'>";
                 echo "<h3 id='titre'>" . ucfirst($value['titre']) . "</h3>";
                 echo "<p id='discipline'>" . ucfirst($value['discipline']) . "</p>";
-                echo "<p id='discipline'>Ecrit par : " . ucfirst($value['auteur']) . "</p>";
+                echo "<p id='discipline'>Posté par : " . ucfirst($value['auteur']) . " le ".$value['creation']."</p>";
                 echo "<a href='website-parts/course.php?article=" . $value['titre'] . "'><button>Lire le cours</button></a>";
                 echo "</div>";
             }

@@ -11,16 +11,17 @@ and open the template in the editor.
     <head>
         <link rel="stylesheet" href="css/header.css"/>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
               crossorigin="anonymous">
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
-
+        <script src="https://cdn.ckeditor.com/4.7.1/basic/ckeditor.js"></script>
         <title>Ajouter un cours</title>
     </head>
     <body>
         <?php
         if (isset($_SESSION['connected'])) {
-
+            $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             require_once './classes/db.php';
             require_once './classes/Article.php';
             require_once './website-parts/header.php';
@@ -40,15 +41,22 @@ and open the template in the editor.
                     </div>
                     <div class="form-group">
                         <label class="form-control-label">Cours</label>
-                        <textarea class="form-control col-md-12" style="resize: none;height: 300px;" name="cours" id="content"></textarea>
+    <!--                        <textarea class="form-control col-md-12" style="resize: none;height: 300px;" name="cours" id="content"></textarea>-->
+                        <textarea name="editor1" id="editor1" rows="20" cols="80">Ecrivez votre cours ici</textarea>
+                        <script>
+                            // Replace the <textarea id="editor1"> with a CKEditor
+                            // instance, using default configuration.
+                            CKEDITOR.replace('editor1');
+                            CKEDITOR.config.uiColor = '#008CBA';
+                        </script>
                     </div>
                     <input class="btn btn-primary" type="submit" value="envoyer">
                 </form>
             </div>
             <?php
-            if (!empty($_POST['titre']) && !empty($_POST['categorie']) && !empty($_POST['cours'])) {
+            if (!empty($post['titre']) && !empty($post['categorie']) && !empty($post['editor1'])) {
                 $db = new db();
-                $course = new Article($_POST['categorie'], $_POST['titre'], $_POST['cours'], $_SESSION["pseudo"]);
+                $course = new Article($post['categorie'], $post['titre'], $_POST['editor1'], $_SESSION["pseudo"]);
                 $db->newArticle($course);
             }
         } else {

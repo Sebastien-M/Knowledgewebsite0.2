@@ -9,18 +9,19 @@ session_start();
         <?php
         require_once '../classes/db.php';
         $db = new db();
-
+        $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
         //au clic sur la page article choisi = article cliqué
-        if (!isset($_GET['article'])) {
+        if (!isset($get['article'])) {
             $_SESSION['articleChoisi'] = $_SESSION['articleChoisi'];
-        } else if (!isset($_GET['commentaire'])) {
-            $_SESSION['articleChoisi'] = $_GET['article'];
+        } else if (!isset($get['commentaire'])) {
+            $_SESSION['articleChoisi'] = $get['article'];
         }
         ?>
         <title>
             <?php
             //Header
-            $article = $db->readSingleArticle($_GET['article']);
+            $article = $db->readSingleArticle($get['article']);
             echo $article['discipline'];
             ?>
         </title>
@@ -29,8 +30,8 @@ session_start();
     <xmp theme="bootswatch" style="display:none;">
 <?php
 //Markdown
-        echo "<h1>".$article['titre'] . "</h1>";
-        echo "<p style='word-wrap: break-word;'>".$article['contenu']. "</p>";
+        echo "<h1>" . $article['titre'] . "</h1>";
+        echo "<p style='word-wrap: break-word;'>" . $article['contenu'] . "</p>";
 ?>
     </xmp>
     <a href="../index.php">Retour au menu</a>
@@ -46,8 +47,8 @@ session_start();
         echo "</form>";
     }
     //si connecté et commentaire rempli
-    if (!empty($_POST['commentaire'])) {
-        $comment = new Commentaire($db->readSingleArticle($_SESSION['articleChoisi'], "id"), $_SESSION["pseudo"], htmlspecialchars($_POST['commentaire']));
+    if (!empty($post['commentaire'])) {
+        $comment = new Commentaire($_SESSION['pseudo'], $post['commentaire'], $article['id']);
         $db->newComment($comment);
     }
     // si non connecté pas de commentaires possible
@@ -55,38 +56,33 @@ session_start();
         
     }
     //si connecté et commentaire vide
-    else if (isset($_POST['commentaire']) && $_POST['commentaire'] === "") {
+    else if (isset($post['commentaire']) && $post['commentaire'] === "") {
         echo "Commentaire vide";
     }
-    echo "<p>Commentaires : </p>";
+
     //Supprimer commentaire si post delete
-    if (isset($_POST['deleteid2'])) {
-            $db->deleteComment($_SESSION['pseudo'],$_POST['deleteid2']);
+    if (isset($post['idcomment'])) {
+        $db->deleteComment($post['idcomment']);
     }
-    else{}
-    //lire commentaires avec meme id que l'article
-    $commentaires = $db->readComments($db->readSingleArticle($_SESSION['articleChoisi'], "id"));
-    foreach ($commentaires as $value) {
-        //Vérifie si l'id du commentaire est le meme que l'article
-        if ($value->{'id'} === $db->readSingleArticle($_SESSION['articleChoisi'], "id")) {
-            echo "<br/><br/>" . $value->{'commentaire'} . "<br/>" . $value->{'date'};
-            //Si un utilisateur est authentifié
-            if (isset($_SESSION['connected'])) {
-                //L'auteur peut supprimer ses commentairess
-                if ($value->{'auteur'} === $_SESSION['pseudo']) {
-                    echo "<form action='' method='POST'>" .
-                    "<input type='hidden' name='deleteid2' value='" . $value->{'id2'} . "'>" .
-                    "<input type='submit' value='supprimer' name='supprimer'>" .
-                    "</form>";
-                }
+
+    echo "<p>Commentaires : </p>";
+    //Afficher les commentaires
+    $commentaires = $db->readComments($article['id']);
+    foreach ($commentaires as $key => $value) {
+        echo $value['commentaire'] . "</br>";
+        echo $value['auteur'] . "</br>";
+        echo $value['date'] . "</br>";
+        if (!empty($_SESSION['pseudo'])) {
+            if ($_SESSION['pseudo'] == $value['auteur']) {
+                echo "<form action='' method='POST'>";
+                echo "<input type='hidden' name='idcomment' value='".$value['id']."'>";
+                echo "<input type='submit' value='Supprimer commentaire'>";
+                echo "</form></br>";
             }
         }
     }
-    echo "<form action='' method='POST'>" .
-    "<input type='submit' value='upvote' name='upvote'>" .
-    "<input type='submit' value='downvote' name='downvote'>" .
-    "</form>";
     ?>
+
 
 </body>
 </html>

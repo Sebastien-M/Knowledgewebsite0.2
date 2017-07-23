@@ -64,7 +64,7 @@ class db {
         $query->bindValue('titre', $cours->getTitre());
         $query->bindValue('contenu', $cours->getContenu());
         $query->bindValue('auteur', $cours->getAuteur());
-        $query->bindValue('creation_date', 'NOW()');
+        $query->bindValue('creation_date', $cours->getDate());
         $query->execute();
 //        if (!$query) {
 //            echo "\nPDO::errorInfo():\n";
@@ -148,11 +148,36 @@ class db {
         return $arr;
     }
 
-    function newComment(){
-        
+    function newComment(Commentaire $comment){
+        $query = $this->dbh->prepare("INSERT INTO commentaires (auteur,commentaire,postdate,idarticle) VALUES ("
+                . ":auteur, :commentaire, :postdate, :idarticle)");
+        $query->bindValue(':auteur', $comment->getAuteur());
+        $query->bindValue(':commentaire', $comment->getCommentaire());
+        $query->bindValue(':postdate', $comment->getDate());
+        $query->bindValue(':idarticle', $comment->getidarticle());
+        $query->execute();
     }
     
-    function readComments(){
-        
+    function readComments($idarticle){
+        $commentaires = [];
+        $i = 0;
+        $query = $this->dbh->prepare("SELECT * FROM commentaires WHERE idarticle=:idarticle");
+        $query->bindValue(':idarticle', $idarticle);
+        $query->execute();
+        while ($row = $query->fetch()) {
+            $commentaires[$i]['id'] = $row['id'];
+            $commentaires[$i]['auteur'] = $row['auteur'];
+            $commentaires[$i]['commentaire'] = $row['commentaire'];
+            $commentaires[$i]['date'] = $row['postdate'];
+            $commentaires[$i]['idarticle'] = $row['idarticle'];
+            $i +=1;
+        }
+        return $commentaires;
+    }
+    
+    function deletecomment($commentid){
+        $query = $this->dbh->prepare("DELETE FROM commentaires WHERE id = $commentid");
+        $query->bindValue(':commentid', $commentid);
+        $query->execute();
     }
 }

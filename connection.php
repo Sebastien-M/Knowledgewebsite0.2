@@ -10,6 +10,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
               crossorigin="anonymous">
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
@@ -18,13 +19,14 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        $post = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
         require_once 'website-parts/header.php';
         require_once './classes/db.php';
         ?>
-        <div class="page-header container-fluid col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3">
+        <div style="text-align:left" class="page-header container-fluid col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <h1 class="">Connexion</h1>
         </div>
-        <form action="" class=" row col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3" method="POST">
+        <form action="" class=" row col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3" method="POST">
             <div class="form-group">
                 <label for="pseudo" class="form-control-label">Pseudo</label>
                 <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="pseudo">
@@ -38,10 +40,10 @@ and open the template in the editor.
 
         <?php
         $db = new db();
-        if (isset($_POST["pseudo"]) && isset($_POST["password"])) {
-            if ($db->connect($_POST['pseudo'],$_POST["password"]) == TRUE) {
+        if (isset($post["pseudo"]) && isset($post["password"])) {
+            if ($db->connect($post['pseudo'],$post["password"]) == TRUE) {
                 $_SESSION['connected'] = true;
-                $_SESSION['pseudo'] = htmlspecialchars($_POST["pseudo"]);
+                $_SESSION['pseudo'] = htmlspecialchars($post["pseudo"]);
                 header("Refresh:0; url=index.php");
             } else {
                 echo "Mauvais pseudo ou mdp";

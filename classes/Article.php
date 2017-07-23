@@ -18,7 +18,7 @@ class Article {
     protected $contenu;
     protected $upvotes = [];
     protected $downvotes = [];
-//    protected $date;
+    protected $date;
     protected $auteur;
     protected $tags;
     protected $commentaires = [];
@@ -30,6 +30,7 @@ class Article {
         $this->contenu = $contenu;
         $this->auteur = $auteur;
         $this->id = rand(0, 1000000);
+        $this->date = date("Y-m-d");
     }
 
     function makeArticle() {
