@@ -8,7 +8,8 @@ CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT,
     avatar VARCHAR(500),
     bio VARCHAR(500),
     password VARCHAR (1000),
-    regdate DATE
+    reg_date DATETIME,
+    email VARCHAR(300
 );
 
 CREATE TABLE articles (
