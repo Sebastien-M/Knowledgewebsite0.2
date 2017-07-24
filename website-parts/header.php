@@ -50,7 +50,7 @@
                         "<li class='" . inscriptionActive() . " navbar-right'><a href='./inscription.php'> <span style='margin-right:5px' class='glyphicon glyphicon-user'></span>Inscription</a></li>";
                     }
                     if (isset($_SESSION['connected'])) {
-                        echo "<ul class='nav navbar-nav navbar-right'><li><a href='./disconnect.php'>Déconnexion</a></li></ul>";
+                        echo "<li class=". addcourseActive()."'navbar-right'><a href='./disconnect.php'>Déconnexion</a></li>";
                     }
                     ?>
                 </ul>

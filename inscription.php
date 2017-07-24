@@ -21,9 +21,9 @@ session_start();
             <p>* Champs obligatoires</p>
         </div>
         <main class="container-fluid">
-            <form class=" row col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3" action="#" method="POST">
+            <form class=" row col-xs-14 col-sm-6 col-sm-offset-3" action="#" method="POST">
                 <div class="form-group">
-                    <label class="form-control-label" for="nom">Nom*</label>
+                    <label class="form-control-label" for="nom">Pseudo*</label>
                     <input class="form-control form-control-success" id="nom" type="text" name="nom">
                 </div>
                 <div class="form-group">

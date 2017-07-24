@@ -18,11 +18,10 @@ include_once 'Commentaire.php';
 class db {
 
     private $dbh;
-    
-    function __construct() {
 
-        $this->dbh = new PDO('mysql:host=localhost;dbname=knowledge_websitedb', 'root', file_get_contents("./dbpass"));
-        //$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    function __construct() {
+        $this->dbh = new PDO('mysql:host=localhost;dbname=knowledge_websitedb', 'root', 'PASS');
+        //$this->dbh->setAttr$this->dbh = new PDO('mysql:host=localhost;dbname=knoibute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /**
@@ -34,7 +33,6 @@ class db {
      * @return (none) (none)
      * 
      */
-    
     function new_user(Utilisateur $user) {
         $query = $this->dbh->prepare("INSERT INTO users (pseudo, password, email, reg_date) " .
                 "VALUES (:pseudo, :password, :email, :reg_date);");
@@ -43,10 +41,7 @@ class db {
         $query->bindValue(':email', $user->getEmail());
         $query->bindValue(':reg_date', 'NOW()');
         $query->execute();
-        if (!$query) {
-            echo "\nPDO::errorInfo():\n";
-            print_r($this->dbh->errorInfo());
-        }
+        return TRUE;
     }
 
     /**
@@ -67,12 +62,9 @@ class db {
         $query->bindValue('auteur', $cours->getAuteur());
         $query->bindValue('creation_date', $cours->getDate());
         $query->execute();
-//        if (!$query) {
-//            echo "\nPDO::errorInfo():\n";
-//            print_r($this->dbh->errorInfo());
-//        }
+        return TRUE;
     }
-    
+
     /**
      * connect
      *
@@ -95,7 +87,7 @@ class db {
             }
         }
     }
-    
+
     /**
      * readArticles
      *
@@ -121,7 +113,7 @@ class db {
         }
         return $arr;
     }
-    
+
     /**
      * readSingleArticle
      *
@@ -131,7 +123,7 @@ class db {
      * @return (array) (Array containing discipline, titre, contenu, auteur and creation date)
      * 
      */
-    function readSingleArticle($chosen){
+    function readSingleArticle($chosen): array {
         $arr = [];
         $query = $this->dbh->query("SELECT * FROM articles where titre='".$chosen."' LIMIT 1;");
 //        if (!$query) {
@@ -149,7 +141,7 @@ class db {
         return $arr;
     }
 
-    function newComment(Commentaire $comment){
+    function newComment(Commentaire $comment) {
         $query = $this->dbh->prepare("INSERT INTO commentaires (auteur,commentaire,postdate,idarticle) VALUES ("
                 . ":auteur, :commentaire, :postdate, :idarticle)");
         $query->bindValue(':auteur', $comment->getAuteur());
@@ -157,9 +149,10 @@ class db {
         $query->bindValue(':postdate', $comment->getDate());
         $query->bindValue(':idarticle', $comment->getidarticle());
         $query->execute();
+        return TRUE;
     }
-    
-    function readComments($idarticle){
+
+    function readComments($idarticle) {
         $commentaires = [];
         $i = 0;
         $query = $this->dbh->prepare("SELECT * FROM commentaires WHERE idarticle=:idarticle");
@@ -171,14 +164,26 @@ class db {
             $commentaires[$i]['commentaire'] = $row['commentaire'];
             $commentaires[$i]['date'] = $row['postdate'];
             $commentaires[$i]['idarticle'] = $row['idarticle'];
-            $i +=1;
+            $i += 1;
         }
         return $commentaires;
     }
-    
-    function deletecomment($commentid){
-        $query = $this->dbh->prepare("DELETE FROM commentaires WHERE id = $commentid");
+
+    function deletecomment($commentid) {
+        $query = $this->dbh->prepare("DELETE FROM commentaires WHERE id = :commentid");
         $query->bindValue(':commentid', $commentid);
         $query->execute();
+        return TRUE;
     }
+
+    function deletearticle($articleid) {
+        $deletecomment = $this->dbh->prepare("DELETE FROM commentaires WHERE idarticle = :articleid");
+        $deletecomment->bindValue(':articleid', $articleid);
+        $deletecomment->execute();
+        $deletearticle = $this->dbh->prepare("DELETE FROM articles WHERE id = :id");
+        $deletearticle->bindValue(':id', $articleid);
+        $deletearticle->execute();
+        return TRUE;
+    }
+
 }

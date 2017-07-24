@@ -97,7 +97,4 @@ class Article {
         $this->downvotes = $downvotes;
     }
 
-
-
-
 }

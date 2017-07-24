@@ -25,7 +25,7 @@ header{
     background-color: #222222;
     display: flex;
     align-items: center;
-    height: 50px;
+/*    height: 50px;*/
 }
 .navMenu{
     list-style: none;
