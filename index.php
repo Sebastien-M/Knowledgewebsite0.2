@@ -16,6 +16,7 @@ and open the template in the editor.
               crossorigin="anonymous">
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/header.css"/>
         <title>Knowledge website</title>
     </head>
     <body>

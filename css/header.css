@@ -1,60 +1,12 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Jun 26, 2017, 3:35:33 PM
-    Author     : seb
-*/
-html,body{
-    margin: 0;
-    padding: 0;
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus{
+    background-color: #5e5e5e;
 }
-.titre{
-    text-decoration: none;
-    color:white;
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus{
+    background-color: #5e5e5e;
 }
-.navTitle{
-    margin:0;
-    color:white;
-    font-size: 20px;
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
+    border-color: #292b2c;
 }
-header{
-    margin:0;
-    background-color: #222222;
-    display: flex;
-    align-items: center;
-/*    height: 50px;*/
-}
-.navMenu{
-    list-style: none;
-    color: white;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.navMenu>li{
-    height: 100%;
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.5s;
-}
-.navMenu>li:hover{
-    background-color: #686868;
-}
-.navMenu>li>a{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: white;
+.navbar{
+    background-color: #292b2c;
 }

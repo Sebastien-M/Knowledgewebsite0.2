@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="./css/header.css"/>
 <header>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -15,7 +16,7 @@
                     if ($_SERVER['PHP_SELF'] === "/projets/Knowledgewebsite0.2/index.php") {
                         echo "active";
                     }
-                    ?>"><a href="./index.php">Cours</a></li>
+                    ?>"><a href="./index.php">Rechercher un cours</a></li>
                         <?php
                         if (isset($_SESSION['connected'])) {
                             echo "<li class='" . addcourseActive() . "'><a href='./addCourse.php'>Ajouter un cours</a></li>";
