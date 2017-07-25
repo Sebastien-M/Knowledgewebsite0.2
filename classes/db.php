@@ -43,7 +43,6 @@ class db {
         $query->execute();
         return TRUE;
     }
-
     /**
      * newArticle
      *
