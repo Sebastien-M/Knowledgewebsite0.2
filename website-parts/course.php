@@ -31,7 +31,9 @@ session_start();
         </title>
     </head>
     <body>
-
+        <?php
+            require_once './headercourse.php';
+        ?>
         <main>
             <?php
             echo "<h1>" . $article['titre'] . "</h1>";
@@ -99,6 +101,6 @@ session_start();
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-                crossorigin="anonymous"></scrip
-        </body>
-        </html>
+        crossorigin="anonymous"></script>
+    </body>
+</html>

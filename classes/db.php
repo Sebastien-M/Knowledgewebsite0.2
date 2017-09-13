@@ -176,7 +176,7 @@ class db {
     }
 
     function deletearticle($articleid) {
-        $deletecomment = $this->dbh->prepare("DELETE FROM commentaires WHERE idarticle = :articleid");
+        $deletecomment = $this->dbh->prepare("DELETE FROM articles WHERE id = :articleid");
         $deletecomment->bindValue(':articleid', $articleid);
         $deletecomment->execute();
         $deletearticle = $this->dbh->prepare("DELETE FROM articles WHERE id = :id");
