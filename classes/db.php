@@ -20,7 +20,7 @@ class db {
     private $dbh;
 
     function __construct() {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=knowledge_websitedb', 'root', 'toor');
+        $this->dbh = new PDO('mysql:host=localhost;dbname=knowledge_websitedb', 'root', 'rga42fm1');
         //$this->dbh->setAttr$this->dbh = new PDO('mysql:host=localhost;dbname=knoibute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
